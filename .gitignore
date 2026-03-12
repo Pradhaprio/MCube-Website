@@ -2,6 +2,9 @@ node_modules
 dist
 .env
 .env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 backend/uploads/*
 !backend/uploads/.gitkeep
 frontend/dist
