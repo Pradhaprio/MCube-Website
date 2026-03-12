@@ -2,17 +2,23 @@ import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import { uploadImages } from '../controllers/uploadController.js';
+import { env } from '../config/env.js';
 import { requireAuth } from '../middleware/auth.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const uploadDir = path.resolve(__dirname, '..', '..', 'uploads');
-fs.mkdirSync(uploadDir, { recursive: true });
+function ensureUploadDir() {
+  fs.mkdirSync(env.uploadDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
+  destination: (req, file, cb) => {
+    try {
+      ensureUploadDir();
+      cb(null, env.uploadDir);
+    } catch (error) {
+      cb(error);
+    }
+  },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     const base = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9-_]/g, '-');

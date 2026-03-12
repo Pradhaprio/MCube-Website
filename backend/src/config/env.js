@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..', '..', '..');
 const backendDir = path.join(rootDir, 'backend');
+const runtimeDir = process.cwd();
 
 dotenv.config({ path: path.join(backendDir, '.env') });
 
@@ -28,5 +29,6 @@ export const env = {
   smtpPort: Number(process.env.SMTP_PORT || 587),
   smtpUser: process.env.SMTP_USER || '',
   smtpPass: process.env.SMTP_PASS || '',
-  dataFile: process.env.DATA_FILE || path.join(rootDir, 'backend', 'src', 'data', 'store.json')
+  dataFile: process.env.DATA_FILE || path.join(rootDir, 'backend', 'src', 'data', 'store.json'),
+  uploadDir: process.env.UPLOAD_DIR || path.join(runtimeDir, 'uploads')
 };
