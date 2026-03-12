@@ -1,4 +1,16 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+function resolveApiUrl(rawValue) {
+  const fallback = 'http://localhost:4000/api';
+  const value = (rawValue || fallback).trim().replace(/\/+$/, '');
+  if (value.endsWith('/api')) {
+    return value;
+  }
+  if (/^https?:\/\/[^/]+$/i.test(value)) {
+    return `${value}/api`;
+  }
+  return value;
+}
+
+const API_URL = resolveApiUrl(import.meta.env.VITE_API_URL);
 
 async function request(path, options = {}) {
   const isFormData = options.body instanceof FormData;

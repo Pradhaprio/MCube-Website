@@ -19,12 +19,47 @@ import { readStore } from './services/dataStore.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function normalizeOrigin(value) {
+  if (!value) return '';
+  const trimmed = String(value).trim().replace(/\/+$/, '');
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
+function buildAllowedOrigins() {
+  return env.clientUrlsRaw
+    .split(',')
+    .map((value) => normalizeOrigin(value))
+    .filter(Boolean);
+}
+
 export function createApp() {
   const app = express();
+  const allowedOrigins = buildAllowedOrigins();
 
   app.use(
     cors({
-      origin: env.clientUrl,
+      origin(origin, callback) {
+        if (!origin) {
+          callback(null, true);
+          return;
+        }
+
+        const normalizedOrigin = normalizeOrigin(origin);
+        const explicitlyAllowed = allowedOrigins.includes(normalizedOrigin);
+        const allowedVercelPreview =
+          env.allowVercelPreviewOrigins && normalizedOrigin.endsWith('.vercel.app');
+
+        if (explicitlyAllowed || allowedVercelPreview) {
+          callback(null, true);
+          return;
+        }
+
+        callback(new Error(`Origin not allowed by CORS: ${origin}`));
+      },
       credentials: true
     })
   );
