@@ -12,6 +12,7 @@ dotenv.config({ path: path.join(backendDir, '.env') });
 export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 4000),
+  host: process.env.HOST || '0.0.0.0',
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   clientUrlsRaw: process.env.CLIENT_URLS || process.env.CLIENT_URL || 'http://localhost:5173',
   allowVercelPreviewOrigins:
