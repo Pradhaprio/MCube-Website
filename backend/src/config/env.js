@@ -1,12 +1,13 @@
-import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
-dotenv.config();
+import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..', '..', '..');
+const backendDir = path.join(rootDir, 'backend');
+
+dotenv.config({ path: path.join(backendDir, '.env') });
 
 export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',

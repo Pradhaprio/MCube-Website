@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { SEED_IDS } from '../src/data/seed.js';
 import { validateLead, validateCatalogItem } from '../src/utils/validators.js';
 
 test('validateLead rejects missing consent', () => {
   const result = validateLead({
     visitorName: 'Arun',
     phoneNumber: '9876543210',
-    selectedCatalogItemId: 'item-1',
+    selectedCatalogItemId: SEED_IDS.items.novaX5,
     sourcePage: '/item/nova-x5-5g',
     contactMethodPreference: 'callback',
     consentAccepted: false

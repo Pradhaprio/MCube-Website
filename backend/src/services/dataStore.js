@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import crypto from 'crypto';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 import { Pool } from 'pg';
@@ -332,7 +333,7 @@ async function writePostgresStore(data, existingClient = null) {
           profile.postalCode,
           profile.latitude,
           profile.longitude,
-          profile.openingHours || {},
+          JSON.stringify(profile.openingHours || {}),
           profile.announcementText,
           profile.isShopOpenOverride,
           profile.createdAt,
@@ -375,8 +376,8 @@ async function writePostgresStore(data, existingClient = null) {
           item.thumbnailUrl,
           item.averageRating || 0,
           item.totalReviews || 0,
-          item.specs || [],
-          item.serviceDetails || null,
+          JSON.stringify(item.specs || []),
+          item.serviceDetails ? JSON.stringify(item.serviceDetails) : null,
           item.isActive !== false,
           item.createdAt,
           item.updatedAt
@@ -388,7 +389,7 @@ async function writePostgresStore(data, existingClient = null) {
           `INSERT INTO catalog_images (id, catalog_item_id, image_url, alt_text, sort_order, is_thumbnail, created_at)
            VALUES ($1,$2,$3,$4,$5,$6,$7)`,
           [
-            `${item.id}-image-${index + 1}`,
+            crypto.randomUUID(),
             item.id,
             image,
             item.title,
@@ -402,7 +403,7 @@ async function writePostgresStore(data, existingClient = null) {
       for (const [index, tag] of (item.tags || []).entries()) {
         await client.query(
           `INSERT INTO catalog_tags (id, catalog_item_id, tag) VALUES ($1,$2,$3)`,
-          [`${item.id}-tag-${index + 1}`, item.id, tag]
+          [crypto.randomUUID(), item.id, tag]
         );
       }
     }

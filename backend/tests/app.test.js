@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import os from 'os';
 import path from 'path';
 import request from 'supertest';
+import { SEED_IDS } from '../src/data/seed.js';
 
 const tempDataFile = path.join(os.tmpdir(), `mcube-test-${Date.now()}.json`);
 
@@ -30,7 +31,7 @@ test('POST /api/leads stores consent-based lead', async () => {
   const payload = {
     visitorName: 'Test Customer',
     phoneNumber: '9876543210',
-    selectedCatalogItemId: 'item-1',
+    selectedCatalogItemId: SEED_IDS.items.novaX5,
     sourcePage: '/item/nova-x5-5g',
     contactMethodPreference: 'callback',
     preferredCallbackTime: 'Evening',
@@ -41,7 +42,7 @@ test('POST /api/leads stores consent-based lead', async () => {
 
   const response = await request(app).post('/api/leads').send(payload);
   assert.equal(response.status, 201);
-  assert.equal(response.body.lead.selectedCatalogItemId, 'item-1');
+  assert.equal(response.body.lead.selectedCatalogItemId, SEED_IDS.items.novaX5);
   assert.equal(response.body.lead.consentAccepted, true);
 });
 
@@ -49,7 +50,7 @@ test('POST /api/leads rejects submission without consent', async () => {
   const response = await request(app).post('/api/leads').send({
     visitorName: 'No Consent',
     phoneNumber: '9876543210',
-    selectedCatalogItemId: 'item-1',
+    selectedCatalogItemId: SEED_IDS.items.novaX5,
     sourcePage: '/item/nova-x5-5g',
     contactMethodPreference: 'callback',
     consentAccepted: false

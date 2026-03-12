@@ -1,5 +1,6 @@
 import { mutateStore, readStore } from '../services/dataStore.js';
 import { sendLeadEmail } from '../services/notificationService.js';
+import { SEED_IDS } from '../data/seed.js';
 import { createId, getDeviceType, nowIso, sortByCreatedAtDesc } from '../utils/helpers.js';
 import { validateLead } from '../utils/validators.js';
 
@@ -53,7 +54,7 @@ export async function createLead(req, res) {
     });
     store.notifications.unshift({
       id: createId('notification'),
-      ownerId: 'owner-1',
+      ownerId: data.owners[0]?.id || SEED_IDS.owner,
       type: 'identified_lead',
       productId: item.id,
       leadId: lead.id,

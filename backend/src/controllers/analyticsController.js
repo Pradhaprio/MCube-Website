@@ -1,4 +1,5 @@
 import { mutateStore, readStore } from '../services/dataStore.js';
+import { SEED_IDS } from '../data/seed.js';
 import { createId, getDeviceType, nowIso } from '../utils/helpers.js';
 
 export async function trackEvent(req, res) {
@@ -32,7 +33,7 @@ export async function trackEvent(req, res) {
       if (item) {
         data.notifications.unshift({
           id: createId('notification'),
-          ownerId: 'owner-1',
+          ownerId: data.owners[0]?.id || SEED_IDS.owner,
           type: 'anonymous_interest',
           productId: item.id,
           leadId: null,

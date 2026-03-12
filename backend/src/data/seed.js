@@ -1,19 +1,52 @@
+export const SEED_IDS = {
+  owner: '11111111-1111-4111-8111-111111111111',
+  store: '11111111-1111-4111-8111-111111111112',
+  categories: {
+    mobiles: '22222222-2222-4222-8222-222222222221',
+    accessories: '22222222-2222-4222-8222-222222222222',
+    services: '22222222-2222-4222-8222-222222222223',
+    android: '22222222-2222-4222-8222-222222222224',
+    budget: '22222222-2222-4222-8222-222222222225',
+    cases: '22222222-2222-4222-8222-222222222226',
+    audio: '22222222-2222-4222-8222-222222222227',
+    repair: '22222222-2222-4222-8222-222222222228',
+    battery: '22222222-2222-4222-8222-222222222229'
+  },
+  items: {
+    novaX5: '33333333-3333-4333-8333-333333333331',
+    pulseA2: '33333333-3333-4333-8333-333333333332',
+    turboCharger: '33333333-3333-4333-8333-333333333333',
+    armorCase: '33333333-3333-4333-8333-333333333334',
+    wavePods: '33333333-3333-4333-8333-333333333335',
+    screenService: '33333333-3333-4333-8333-333333333336',
+    batteryService: '33333333-3333-4333-8333-333333333337',
+    softwareTuneUp: '33333333-3333-4333-8333-333333333338'
+  },
+  reviews: {
+    one: '44444444-4444-4444-8444-444444444441',
+    two: '44444444-4444-4444-8444-444444444442',
+    three: '44444444-4444-4444-8444-444444444443'
+  }
+};
+
+const createdAt = '2026-03-12T09:00:00.000Z';
+
 export const seedData = {
   owners: [
     {
-      id: 'owner-1',
+      id: SEED_IDS.owner,
       email: 'owner@mcubemobile.local',
       fullName: 'M-Cube Owner',
       passwordHash: 'Owner@123',
       role: 'owner',
       isActive: true,
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     }
   ],
   storeProfile: {
-    id: 'store-1',
-    ownerId: 'owner-1',
+    id: SEED_IDS.store,
+    ownerId: SEED_IDS.owner,
     shopName: 'M-Cube Mobile',
     logoUrl: '',
     bannerUrl: '',
@@ -38,23 +71,23 @@ export const seedData = {
     },
     announcementText: 'Launch offers on 5G mobiles, same-day service support, and original accessories.',
     isShopOpenOverride: null,
-    createdAt: '2026-03-12T09:00:00.000Z',
-    updatedAt: '2026-03-12T09:00:00.000Z'
+    createdAt,
+    updatedAt: createdAt
   },
   categories: [
-    { id: 'cat-mobiles', name: 'Mobiles', slug: 'mobiles', parentId: null, sortOrder: 1, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'cat-accessories', name: 'Accessories', slug: 'accessories', parentId: null, sortOrder: 2, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'cat-services', name: 'Services', slug: 'services', parentId: null, sortOrder: 3, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-android', name: 'Android Phones', slug: 'android-phones', parentId: 'cat-mobiles', sortOrder: 1, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-budget', name: 'Budget Phones', slug: 'budget-phones', parentId: 'cat-mobiles', sortOrder: 2, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-cases', name: 'Cases', slug: 'cases', parentId: 'cat-accessories', sortOrder: 1, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-audio', name: 'Audio', slug: 'audio', parentId: 'cat-accessories', sortOrder: 2, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-repair', name: 'Screen Repair', slug: 'screen-repair', parentId: 'cat-services', sortOrder: 1, createdAt: '2026-03-12T09:00:00.000Z' },
-    { id: 'sub-battery', name: 'Battery Replacement', slug: 'battery-replacement', parentId: 'cat-services', sortOrder: 2, createdAt: '2026-03-12T09:00:00.000Z' }
+    { id: SEED_IDS.categories.mobiles, name: 'Mobiles', slug: 'mobiles', parentId: null, sortOrder: 1, createdAt },
+    { id: SEED_IDS.categories.accessories, name: 'Accessories', slug: 'accessories', parentId: null, sortOrder: 2, createdAt },
+    { id: SEED_IDS.categories.services, name: 'Services', slug: 'services', parentId: null, sortOrder: 3, createdAt },
+    { id: SEED_IDS.categories.android, name: 'Android Phones', slug: 'android-phones', parentId: SEED_IDS.categories.mobiles, sortOrder: 1, createdAt },
+    { id: SEED_IDS.categories.budget, name: 'Budget Phones', slug: 'budget-phones', parentId: SEED_IDS.categories.mobiles, sortOrder: 2, createdAt },
+    { id: SEED_IDS.categories.cases, name: 'Cases', slug: 'cases', parentId: SEED_IDS.categories.accessories, sortOrder: 1, createdAt },
+    { id: SEED_IDS.categories.audio, name: 'Audio', slug: 'audio', parentId: SEED_IDS.categories.accessories, sortOrder: 2, createdAt },
+    { id: SEED_IDS.categories.repair, name: 'Screen Repair', slug: 'screen-repair', parentId: SEED_IDS.categories.services, sortOrder: 1, createdAt },
+    { id: SEED_IDS.categories.battery, name: 'Battery Replacement', slug: 'battery-replacement', parentId: SEED_IDS.categories.services, sortOrder: 2, createdAt }
   ],
   catalogItems: [
     {
-      id: 'item-1',
+      id: SEED_IDS.items.novaX5,
       itemType: 'mobile',
       title: 'Nova X5 5G',
       slug: 'nova-x5-5g',
@@ -63,8 +96,8 @@ export const seedData = {
       price: 18999,
       discountPrice: 17499,
       currency: 'INR',
-      categoryId: 'cat-mobiles',
-      subcategoryId: 'sub-android',
+      categoryId: SEED_IDS.categories.mobiles,
+      subcategoryId: SEED_IDS.categories.android,
       tags: ['5G', 'Featured', 'Fast Charging'],
       stockQuantity: 12,
       stockStatus: 'in_stock',
@@ -78,11 +111,11 @@ export const seedData = {
       averageRating: 4.6,
       totalReviews: 18,
       specs: ['120Hz AMOLED', '5000mAh battery', '50MP dual camera'],
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-2',
+      id: SEED_IDS.items.pulseA2,
       itemType: 'mobile',
       title: 'Pulse A2',
       slug: 'pulse-a2',
@@ -91,8 +124,8 @@ export const seedData = {
       price: 9999,
       discountPrice: 9299,
       currency: 'INR',
-      categoryId: 'cat-mobiles',
-      subcategoryId: 'sub-budget',
+      categoryId: SEED_IDS.categories.mobiles,
+      subcategoryId: SEED_IDS.categories.budget,
       tags: ['Budget', 'Popular'],
       stockQuantity: 5,
       stockStatus: 'low_stock',
@@ -103,11 +136,11 @@ export const seedData = {
       averageRating: 4.2,
       totalReviews: 10,
       specs: ['5000mAh battery', '6.6 inch display', 'Dual SIM'],
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-3',
+      id: SEED_IDS.items.turboCharger,
       itemType: 'accessory',
       title: '65W Turbo Charger',
       slug: '65w-turbo-charger',
@@ -116,7 +149,7 @@ export const seedData = {
       price: 1499,
       discountPrice: 1199,
       currency: 'INR',
-      categoryId: 'cat-accessories',
+      categoryId: SEED_IDS.categories.accessories,
       subcategoryId: null,
       tags: ['Original', 'Fast Charging', 'Best Seller'],
       stockQuantity: 24,
@@ -128,11 +161,11 @@ export const seedData = {
       averageRating: 4.8,
       totalReviews: 34,
       specs: ['65W output', 'Type-C support', 'Surge protection'],
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-4',
+      id: SEED_IDS.items.armorCase,
       itemType: 'accessory',
       title: 'Armor Shield Case',
       slug: 'armor-shield-case',
@@ -141,8 +174,8 @@ export const seedData = {
       price: 599,
       discountPrice: 449,
       currency: 'INR',
-      categoryId: 'cat-accessories',
-      subcategoryId: 'sub-cases',
+      categoryId: SEED_IDS.categories.accessories,
+      subcategoryId: SEED_IDS.categories.cases,
       tags: ['New Arrival', 'Case'],
       stockQuantity: 16,
       stockStatus: 'in_stock',
@@ -153,11 +186,11 @@ export const seedData = {
       averageRating: 4.4,
       totalReviews: 8,
       specs: ['Shock absorbent', 'Camera lip', 'Slim fit'],
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-5',
+      id: SEED_IDS.items.wavePods,
       itemType: 'accessory',
       title: 'WavePods Neckband',
       slug: 'wavepods-neckband',
@@ -166,8 +199,8 @@ export const seedData = {
       price: 1299,
       discountPrice: 999,
       currency: 'INR',
-      categoryId: 'cat-accessories',
-      subcategoryId: 'sub-audio',
+      categoryId: SEED_IDS.categories.accessories,
+      subcategoryId: SEED_IDS.categories.audio,
       tags: ['Audio', 'Popular'],
       stockQuantity: 7,
       stockStatus: 'low_stock',
@@ -178,11 +211,11 @@ export const seedData = {
       averageRating: 4.5,
       totalReviews: 14,
       specs: ['Quick charge', 'Noise isolation', '18 hours playback'],
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-6',
+      id: SEED_IDS.items.screenService,
       itemType: 'service',
       title: 'Screen Replacement Service',
       slug: 'screen-replacement-service',
@@ -191,8 +224,8 @@ export const seedData = {
       price: 1499,
       discountPrice: null,
       currency: 'INR',
-      categoryId: 'cat-services',
-      subcategoryId: 'sub-repair',
+      categoryId: SEED_IDS.categories.services,
+      subcategoryId: SEED_IDS.categories.repair,
       tags: ['Same Day', 'Service', 'Warranty'],
       stockQuantity: 0,
       stockStatus: 'service_available',
@@ -209,11 +242,11 @@ export const seedData = {
         warrantyDays: 30,
         appointmentRequired: false
       },
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-7',
+      id: SEED_IDS.items.batteryService,
       itemType: 'service',
       title: 'Battery Replacement Service',
       slug: 'battery-replacement-service',
@@ -222,8 +255,8 @@ export const seedData = {
       price: 999,
       discountPrice: null,
       currency: 'INR',
-      categoryId: 'cat-services',
-      subcategoryId: 'sub-battery',
+      categoryId: SEED_IDS.categories.services,
+      subcategoryId: SEED_IDS.categories.battery,
       tags: ['Battery', 'Warranty'],
       stockQuantity: 0,
       stockStatus: 'service_available',
@@ -240,11 +273,11 @@ export const seedData = {
         warrantyDays: 30,
         appointmentRequired: false
       },
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'item-8',
+      id: SEED_IDS.items.softwareTuneUp,
       itemType: 'service',
       title: 'Software Tune-Up',
       slug: 'software-tune-up',
@@ -253,7 +286,7 @@ export const seedData = {
       price: 499,
       discountPrice: null,
       currency: 'INR',
-      categoryId: 'cat-services',
+      categoryId: SEED_IDS.categories.services,
       subcategoryId: null,
       tags: ['Software', 'Performance'],
       stockQuantity: 0,
@@ -271,43 +304,43 @@ export const seedData = {
         warrantyDays: 7,
         appointmentRequired: true
       },
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     }
   ],
   reviews: [
     {
-      id: 'review-1',
-      catalogItemId: 'item-1',
+      id: SEED_IDS.reviews.one,
+      catalogItemId: SEED_IDS.items.novaX5,
       reviewerName: 'Arun',
       rating: 5,
       title: 'Worth the upgrade',
       comment: 'Good display and battery. Delivery from the shop was smooth.',
       isPublished: true,
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'review-2',
-      catalogItemId: 'item-6',
+      id: SEED_IDS.reviews.two,
+      catalogItemId: SEED_IDS.items.screenService,
       reviewerName: 'Ritika',
       rating: 5,
       title: 'Quick repair',
       comment: 'Screen was replaced the same day and touch response is perfect.',
       isPublished: true,
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     },
     {
-      id: 'review-3',
-      catalogItemId: 'item-3',
+      id: SEED_IDS.reviews.three,
+      catalogItemId: SEED_IDS.items.turboCharger,
       reviewerName: 'Jagan',
       rating: 4,
       title: 'Fast charging works',
       comment: 'Original-looking charger and speed is good.',
       isPublished: true,
-      createdAt: '2026-03-12T09:00:00.000Z',
-      updatedAt: '2026-03-12T09:00:00.000Z'
+      createdAt,
+      updatedAt: createdAt
     }
   ],
   leads: [],
