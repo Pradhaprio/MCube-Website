@@ -52,12 +52,25 @@ export function ItemDetailPage({ profile }) {
       text: `Check out ${item.title} at M-Cube Mobile`,
       url: window.location.href
     };
-    if (navigator.share) {
-      await navigator.share(shareData);
-      return;
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(window.location.href);
+        pushToast({ message: 'Link copied.', tone: 'success' });
+        return;
+      }
+
+      throw new Error('Share is not supported on this device.');
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        return;
+      }
+      pushToast({ message: error.message || 'Unable to share this item.', tone: 'error' });
     }
-    await navigator.clipboard.writeText(window.location.href);
-    pushToast({ message: 'Link copied.', tone: 'success' });
   };
 
   const trackIntent = async (eventType, ctaClicked) => {

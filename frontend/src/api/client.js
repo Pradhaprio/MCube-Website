@@ -10,7 +10,8 @@ function resolveApiUrl(rawValue) {
   return value;
 }
 
-const API_URL = resolveApiUrl(import.meta.env.VITE_API_URL);
+export const API_URL = resolveApiUrl(import.meta.env.VITE_API_URL);
+export const API_ORIGIN = API_URL.replace(/\/api\/?$/, '');
 
 async function request(path, options = {}) {
   const isFormData = options.body instanceof FormData;

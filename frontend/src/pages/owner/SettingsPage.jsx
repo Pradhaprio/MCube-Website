@@ -56,12 +56,12 @@ export function SettingsPage({ profile, setProfile }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="section-title">Settings and profile</h1>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-300">Update your visible store details and contact channels.</p>
         </div>
-        <button type="button" onClick={logout} className="btn-secondary">Logout</button>
+        <button type="button" onClick={logout} className="btn-secondary w-full sm:w-auto">Logout</button>
       </div>
       <div className="glass-card p-5">
         <div className="grid gap-4 md:grid-cols-2">

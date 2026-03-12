@@ -23,12 +23,12 @@ export function ProductsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="section-title">Manage catalog</h1>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-300">Add, edit, pin, and remove mobiles, accessories, and service listings.</p>
         </div>
-        <Link to="/owner/products/new" className="btn-primary">Add product</Link>
+        <Link to="/owner/products/new" className="btn-primary w-full sm:w-auto">Add product</Link>
       </div>
       <div className="grid gap-4">
         {items.map((item) => (
@@ -38,9 +38,9 @@ export function ProductsPage() {
               <h2 className="font-display text-xl font-semibold">{item.title}</h2>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-300">{item.shortDescription}</p>
             </div>
-            <div className="flex gap-3">
-              <Link to={`/owner/products/${item.id}/edit`} className="btn-secondary">Edit</Link>
-              <button type="button" onClick={() => removeItem(item.id)} className="btn-secondary">Delete</button>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link to={`/owner/products/${item.id}/edit`} className="btn-secondary w-full sm:w-auto">Edit</Link>
+              <button type="button" onClick={() => removeItem(item.id)} className="btn-secondary w-full sm:w-auto">Delete</button>
             </div>
           </div>
         ))}

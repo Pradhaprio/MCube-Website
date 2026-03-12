@@ -45,7 +45,12 @@ export function Navbar({ profile }) {
           </Link>
           <ThemeToggle />
         </nav>
-        <div className="lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          {!onOwnerPage && (
+            <Link to="/owner/login" className="btn-secondary px-3 py-2 text-sm">
+              Owner
+            </Link>
+          )}
           <ThemeToggle />
         </div>
       </div>

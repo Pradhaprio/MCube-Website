@@ -12,7 +12,7 @@ const links = [
 
 export function OwnerSubnav() {
   return (
-    <div className="mb-6 hidden overflow-x-auto rounded-3xl border border-slate-200 bg-white p-2 shadow-lift dark:border-slate-800 dark:bg-slate-900 lg:block">
+    <div className="mb-6 overflow-x-auto rounded-3xl border border-slate-200 bg-white p-2 shadow-lift dark:border-slate-800 dark:bg-slate-900">
       <div className="flex gap-2">
         {links.map((link) => (
           <NavLink

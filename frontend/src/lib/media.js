@@ -1,5 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
-const API_ORIGIN = API_URL.replace(/\/api\/?$/, '');
+import { API_ORIGIN } from '../api/client';
 
 export function resolveMediaUrl(value) {
   if (!value) return '/icon-512.svg';
