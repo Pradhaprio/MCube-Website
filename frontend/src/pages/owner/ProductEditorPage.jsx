@@ -43,10 +43,16 @@ export function ProductEditorPage() {
   };
 
   const uploadImages = async (files) => {
-    const formData = new FormData();
-    files.forEach((file) => formData.append('images', file));
-    const data = await api.upload('/uploads/images', formData, token);
-    return data.files.map((file) => file.url);
+    try {
+      const formData = new FormData();
+      files.forEach((file) => formData.append('images', file));
+      const data = await api.upload('/uploads/images', formData, token);
+      pushToast({ message: `${data.files.length} image${data.files.length === 1 ? '' : 's'} uploaded.`, tone: 'success' });
+      return data.files.map((file) => file.url);
+    } catch (error) {
+      pushToast({ message: error.message || 'Image upload failed.', tone: 'error' });
+      return [];
+    }
   };
 
   return (

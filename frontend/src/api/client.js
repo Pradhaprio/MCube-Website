@@ -14,15 +14,17 @@ export const API_URL = resolveApiUrl(import.meta.env.VITE_API_URL);
 export const API_ORIGIN = API_URL.replace(/\/api\/?$/, '');
 
 async function request(path, options = {}) {
-  const isFormData = options.body instanceof FormData;
+  const { body, headers = {}, token, ...rest } = options;
+  const isFormData = body instanceof FormData;
+
   const response = await fetch(`${API_URL}${path}`, {
+    ...rest,
     headers: {
       ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
-      ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),
-      ...options.headers
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...headers
     },
-    ...options,
-    body: isFormData ? options.body : options.body ? JSON.stringify(options.body) : undefined
+    body: isFormData ? body : body ? JSON.stringify(body) : undefined
   });
 
   const contentType = response.headers.get('content-type') || '';
@@ -47,7 +49,6 @@ export const api = {
     request(path, {
       method: 'POST',
       body: formData,
-      token,
-      headers: {}
+      token
     })
 };
