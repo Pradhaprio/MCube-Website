@@ -1,3 +1,5 @@
+import { getStoreMapLink } from '../lib/location';
+
 export function ContactPage({ profile }) {
   const whatsappMessage = encodeURIComponent('Hi, I would like to know more about your mobiles, services, and accessories.');
   return (
@@ -12,7 +14,7 @@ export function ContactPage({ profile }) {
             <a href={`tel:${profile?.phone || ''}`} className="btn-primary">Call now</a>
             <a href={`https://wa.me/${profile?.whatsappNumber || ''}?text=${whatsappMessage}`} target="_blank" rel="noreferrer" className="btn-secondary">Chat on WhatsApp</a>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${profile?.addressLine1 || ''} ${profile?.city || ''}`)}`}
+              href={getStoreMapLink(profile)}
               target="_blank"
               rel="noreferrer"
               className="btn-secondary"

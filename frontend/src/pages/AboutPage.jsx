@@ -1,3 +1,5 @@
+import { getStoreMapLink } from '../lib/location';
+
 export function AboutPage({ profile }) {
   return (
     <div className="container-shell py-8">
@@ -29,7 +31,7 @@ export function AboutPage({ profile }) {
             <p>WhatsApp: {profile?.whatsappNumber}</p>
           </div>
           <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${profile?.addressLine1 || ''} ${profile?.city || ''}`)}`}
+            href={getStoreMapLink(profile)}
             target="_blank"
             rel="noreferrer"
             className="btn-primary mt-6"

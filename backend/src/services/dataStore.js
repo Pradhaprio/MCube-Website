@@ -106,29 +106,19 @@ async function readPostgresStore() {
   await ensurePostgres();
   const client = await getPool().connect();
   try {
-    const [
-      owners,
-      storeProfiles,
-      categories,
-      catalogItems,
-      catalogImages,
-      catalogTags,
-      reviews,
-      leads,
-      analyticsEvents,
-      notifications
-    ] = await Promise.all([
-      queryAll(client, 'SELECT * FROM owners ORDER BY created_at ASC'),
-      queryAll(client, 'SELECT * FROM store_profiles ORDER BY created_at ASC'),
-      queryAll(client, 'SELECT * FROM categories ORDER BY sort_order ASC, created_at ASC'),
-      queryAll(client, 'SELECT * FROM catalog_items ORDER BY created_at DESC'),
-      queryAll(client, 'SELECT * FROM catalog_images ORDER BY catalog_item_id ASC, sort_order ASC'),
-      queryAll(client, 'SELECT * FROM catalog_tags ORDER BY catalog_item_id ASC'),
-      queryAll(client, 'SELECT * FROM reviews ORDER BY created_at DESC'),
-      queryAll(client, 'SELECT * FROM leads ORDER BY created_at DESC'),
-      queryAll(client, 'SELECT * FROM analytics_events ORDER BY created_at DESC'),
-      queryAll(client, 'SELECT * FROM notifications ORDER BY created_at DESC')
-    ]);
+    const owners = await queryAll(client, 'SELECT * FROM owners ORDER BY created_at ASC');
+    const storeProfiles = await queryAll(client, 'SELECT * FROM store_profiles ORDER BY created_at ASC');
+    const categories = await queryAll(
+      client,
+      'SELECT * FROM categories ORDER BY CASE WHEN parent_id IS NULL THEN 0 ELSE 1 END, sort_order ASC, created_at ASC'
+    );
+    const catalogItems = await queryAll(client, 'SELECT * FROM catalog_items ORDER BY created_at DESC');
+    const catalogImages = await queryAll(client, 'SELECT * FROM catalog_images ORDER BY catalog_item_id ASC, sort_order ASC');
+    const catalogTags = await queryAll(client, 'SELECT * FROM catalog_tags ORDER BY catalog_item_id ASC');
+    const reviews = await queryAll(client, 'SELECT * FROM reviews ORDER BY created_at DESC');
+    const leads = await queryAll(client, 'SELECT * FROM leads ORDER BY created_at DESC');
+    const analyticsEvents = await queryAll(client, 'SELECT * FROM analytics_events ORDER BY created_at DESC');
+    const notifications = await queryAll(client, 'SELECT * FROM notifications ORDER BY created_at DESC');
 
     const imagesByItem = new Map();
     catalogImages.forEach((row) => {
@@ -342,7 +332,19 @@ async function writePostgresStore(data, existingClient = null) {
       );
     }
 
-    for (const category of data.categories) {
+    const orderedCategories = [...data.categories].sort((a, b) => {
+      const parentWeightA = a.parentId ? 1 : 0;
+      const parentWeightB = b.parentId ? 1 : 0;
+      if (parentWeightA !== parentWeightB) {
+        return parentWeightA - parentWeightB;
+      }
+      if (a.sortOrder !== b.sortOrder) {
+        return a.sortOrder - b.sortOrder;
+      }
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+    for (const category of orderedCategories) {
       await client.query(
         `INSERT INTO categories (id, name, slug, parent_id, sort_order, created_at)
          VALUES ($1,$2,$3,$4,$5,$6)`,
