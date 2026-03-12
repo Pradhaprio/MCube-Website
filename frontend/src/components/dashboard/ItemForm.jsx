@@ -74,10 +74,32 @@ export function ItemForm({ categories = [], initialValue, onSubmit, onUploadImag
     const files = Array.from(event.target.files || []);
     if (!files.length || !onUploadImages) return;
     const urls = await onUploadImages(files);
+    if (!urls.length) return;
     setForm((current) => ({
       ...current,
       images: [...current.images, ...urls],
       thumbnailUrl: current.thumbnailUrl || urls[0] || ''
+    }));
+  };
+
+  const removeImage = (imageToRemove) => {
+    setForm((current) => {
+      const nextImages = current.images.filter((image) => image !== imageToRemove);
+      const nextThumbnail =
+        current.thumbnailUrl === imageToRemove ? nextImages[0] || '' : current.thumbnailUrl;
+
+      return {
+        ...current,
+        images: nextImages,
+        thumbnailUrl: nextThumbnail
+      };
+    });
+  };
+
+  const setThumbnail = (imageToUse) => {
+    setForm((current) => ({
+      ...current,
+      thumbnailUrl: imageToUse
     }));
   };
 
@@ -119,9 +141,27 @@ export function ItemForm({ categories = [], initialValue, onSubmit, onUploadImag
             Upload images
             <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileUpload} />
           </label>
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {form.images.map((image) => (
-              <img key={image} src={resolveMediaUrl(image)} alt="" className="h-24 w-full rounded-2xl object-cover" />
+              <div key={image} className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700">
+                <img src={resolveMediaUrl(image)} alt="" className="h-24 w-full object-cover" />
+                <div className="grid grid-cols-2 gap-2 p-3">
+                  <button
+                    type="button"
+                    onClick={() => setThumbnail(image)}
+                    className={`btn-secondary px-3 py-2 text-xs ${form.thumbnailUrl === image ? 'border-brand-400 text-brand-700 dark:border-brand-700 dark:text-brand-200' : ''}`}
+                  >
+                    {form.thumbnailUrl === image ? 'Thumbnail' : 'Set thumb'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => removeImage(image)}
+                    className="btn-secondary px-3 py-2 text-xs"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </div>

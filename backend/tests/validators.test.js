@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SEED_IDS } from '../src/data/seed.js';
 import { validateLead, validateCatalogItem } from '../src/utils/validators.js';
+import { createId } from '../src/utils/helpers.js';
 
 test('validateLead rejects missing consent', () => {
   const result = validateLead({
@@ -27,4 +28,10 @@ test('validateCatalogItem accepts service items', () => {
   });
 
   assert.equal(result.errors.length, 0);
+});
+
+test('createId returns raw UUID values', () => {
+  const id = createId('lead');
+  assert.match(id, /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+  assert.ok(!id.startsWith('lead-'));
 });

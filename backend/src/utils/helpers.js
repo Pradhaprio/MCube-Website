@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 export function createId(prefix = 'id') {
-  return `${prefix}-${crypto.randomUUID()}`;
+  return crypto.randomUUID();
 }
 
 export function nowIso() {

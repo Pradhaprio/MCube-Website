@@ -34,6 +34,19 @@ test('GET / returns service status', async () => {
   assert.equal(response.body.service, 'mcube-backend');
 });
 
+test('POST /api/analytics/events records analytics with UUID ids', async () => {
+  const response = await request(app).post('/api/analytics/events').send({
+    sessionId: 'session-test',
+    eventType: 'product_view',
+    viewedCatalogItemId: SEED_IDS.items.novaX5,
+    pagePath: '/item/nova-x5-5g',
+    sourcePage: '/item/nova-x5-5g'
+  });
+
+  assert.equal(response.status, 201);
+  assert.match(response.body.event.id, /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+});
+
 test('POST /api/leads stores consent-based lead', async () => {
   const payload = {
     visitorName: 'Test Customer',
@@ -49,6 +62,7 @@ test('POST /api/leads stores consent-based lead', async () => {
 
   const response = await request(app).post('/api/leads').send(payload);
   assert.equal(response.status, 201);
+  assert.match(response.body.lead.id, /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
   assert.equal(response.body.lead.selectedCatalogItemId, SEED_IDS.items.novaX5);
   assert.equal(response.body.lead.consentAccepted, true);
 });
