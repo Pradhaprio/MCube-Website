@@ -8,12 +8,20 @@ export function NotificationPanel({ notifications = [], onRead }) {
         {notifications.map((notification) => (
           <div
             key={notification.id}
-            className={`rounded-2xl border p-4 ${notification.isRead ? 'border-slate-200 dark:border-slate-800' : 'border-brand-300 bg-brand-50 dark:border-brand-800 dark:bg-brand-950/30'}`}
+            className={`rounded-2xl border p-4 ${
+              notification.isRead
+                ? 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/80'
+                : 'border-brand-300 bg-brand-50 dark:border-brand-800 dark:bg-brand-950/30'
+            }`}
           >
-            <p className="font-semibold">{notification.title}</p>
+            <p className="font-semibold text-slate-900 dark:text-white">{notification.title}</p>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-300">{notification.message}</p>
             {!notification.isRead && (
-              <button type="button" onClick={() => onRead(notification.id)} className="mt-3 text-sm font-semibold text-brand-700">
+              <button
+                type="button"
+                onClick={() => onRead(notification.id)}
+                className="mt-3 text-sm font-semibold text-brand-700 dark:text-brand-300"
+              >
                 Mark as read
               </button>
             )}
