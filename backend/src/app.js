@@ -69,6 +69,13 @@ export function createApp() {
   app.use(express.urlencoded({ extended: true }));
   app.use('/uploads', express.static(env.uploadDir));
 
+  app.get('/', (req, res) => {
+    res.json({
+      status: 'ok',
+      service: 'mcube-backend'
+    });
+  });
+
   app.get('/api/health', async (req, res) => {
     const data = await readStore();
     res.json({

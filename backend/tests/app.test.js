@@ -27,6 +27,13 @@ test('GET /api/health returns seeded catalog counts', async () => {
   assert.ok(response.body.catalogCount >= 1);
 });
 
+test('GET / returns service status', async () => {
+  const response = await request(app).get('/');
+  assert.equal(response.status, 200);
+  assert.equal(response.body.status, 'ok');
+  assert.equal(response.body.service, 'mcube-backend');
+});
+
 test('POST /api/leads stores consent-based lead', async () => {
   const payload = {
     visitorName: 'Test Customer',
