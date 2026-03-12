@@ -109,13 +109,13 @@ export function HomePage({ profile }) {
               <p>One store for mobile purchase, genuine accessories, and all common repair needs.</p>
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl bg-brand-50 p-4 dark:bg-brand-950">
-                <p className="font-display text-2xl font-semibold text-brand-800 dark:text-brand-100">4.7/5</p>
-                <p className="mt-1 text-sm text-brand-900/80 dark:text-brand-100/80">Average rating across products and services</p>
+              <div className="rounded-2xl bg-brand-50 p-4 dark:border dark:border-slate-800 dark:bg-slate-900">
+                <p className="font-display text-2xl font-semibold text-brand-800 dark:text-white">4.7/5</p>
+                <p className="mt-1 text-sm text-brand-900/80 dark:text-slate-200">Average rating across products and services</p>
               </div>
-              <div className="rounded-2xl bg-accent-50 p-4 dark:bg-accent-950">
-                <p className="font-display text-2xl font-semibold text-accent-800 dark:text-accent-100">Same day</p>
-                <p className="mt-1 text-sm text-accent-900/80 dark:text-accent-100/80">Support available for common service jobs</p>
+              <div className="rounded-2xl bg-accent-50 p-4 dark:border dark:border-slate-800 dark:bg-slate-900">
+                <p className="font-display text-2xl font-semibold text-accent-800 dark:text-white">Same day</p>
+                <p className="mt-1 text-sm text-accent-900/80 dark:text-slate-200">Support available for common service jobs</p>
               </div>
             </div>
           </div>
