@@ -10,7 +10,19 @@ import { WishlistProvider } from './context/WishlistContext';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+      .catch(() => undefined);
+
+    if ('caches' in window) {
+      caches
+        .keys()
+        .then((keys) =>
+          Promise.all(keys.filter((key) => key.startsWith('mcube-mobile-')).map((key) => caches.delete(key)))
+        )
+        .catch(() => undefined);
+    }
   });
 }
 
