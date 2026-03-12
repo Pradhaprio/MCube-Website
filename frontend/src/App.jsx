@@ -5,6 +5,7 @@ import { AnnouncementBar } from './components/layout/AnnouncementBar';
 import { Footer } from './components/layout/Footer';
 import { MobileBottomNav } from './components/layout/MobileBottomNav';
 import { Navbar } from './components/layout/Navbar';
+import { OwnerSubnav } from './components/layout/OwnerSubnav';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { ToastViewport } from './components/shared/ToastViewport';
 import { HomePage } from './pages/HomePage';
@@ -38,7 +39,10 @@ function OwnerLayout({ profile, children }) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <Navbar profile={profile} />
-      <main className="container-shell pb-32 pt-8">{children}</main>
+      <main className="container-shell pb-32 pt-8">
+        <OwnerSubnav />
+        {children}
+      </main>
       <MobileBottomNav owner />
     </div>
   );
