@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mcube-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mcube_mobile
+      POSTGRES_USER: mcube
+      POSTGRES_PASSWORD: mcube
+    ports:
+      - "5432:5432"
+    volumes:
+      - mcube_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  mcube_postgres_data:
