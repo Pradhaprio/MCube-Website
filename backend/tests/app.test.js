@@ -59,3 +59,24 @@ test('POST /api/leads rejects submission without consent', async () => {
   assert.equal(response.status, 400);
   assert.match(response.body.errors[0], /Consent/);
 });
+
+test('PUT /api/store/profile allows clearing optional text fields', async () => {
+  const loginResponse = await request(app).post('/api/auth/login').send({
+    email: 'owner@mcubemobile.local',
+    password: 'Owner@123'
+  });
+
+  assert.equal(loginResponse.status, 200);
+
+  const response = await request(app)
+    .put('/api/store/profile')
+    .set('Authorization', `Bearer ${loginResponse.body.token}`)
+    .send({
+      addressLine2: '',
+      announcementText: ''
+    });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.profile.addressLine2, '');
+  assert.equal(response.body.profile.announcementText, '');
+});

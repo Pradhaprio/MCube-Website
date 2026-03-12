@@ -2,8 +2,18 @@ import { createContext, useContext, useMemo, useState } from 'react';
 
 const WishlistContext = createContext(null);
 
+function readWishlist() {
+  try {
+    const raw = localStorage.getItem('mcube-wishlist');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    localStorage.removeItem('mcube-wishlist');
+    return [];
+  }
+}
+
 export function WishlistProvider({ children }) {
-  const [ids, setIds] = useState(() => JSON.parse(localStorage.getItem('mcube-wishlist') || '[]'));
+  const [ids, setIds] = useState(readWishlist);
 
   const toggleWishlist = (id) => {
     const next = ids.includes(id) ? ids.filter((entry) => entry !== id) : [...ids, id];

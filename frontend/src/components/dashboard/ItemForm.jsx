@@ -26,23 +26,26 @@ const emptyItem = {
   appointmentRequired: false
 };
 
-export function ItemForm({ categories = [], initialValue, onSubmit, onUploadImages, loading }) {
-  const [form, setForm] = useState(() => ({
+function toFormValue(initialValue) {
+  return {
     ...emptyItem,
     ...initialValue,
     tags: Array.isArray(initialValue?.tags) ? initialValue.tags.join(', ') : '',
-    specs: Array.isArray(initialValue?.specs) ? initialValue.specs.join(', ') : ''
-  }));
+    specs: Array.isArray(initialValue?.specs) ? initialValue.specs.join(', ') : '',
+    serviceDurationMinutes: initialValue?.serviceDetails?.serviceDurationMinutes ?? '',
+    serviceMode: initialValue?.serviceDetails?.serviceMode || emptyItem.serviceMode,
+    warrantyDays: initialValue?.serviceDetails?.warrantyDays ?? '',
+    appointmentRequired: initialValue?.serviceDetails?.appointmentRequired ?? false
+  };
+}
+
+export function ItemForm({ categories = [], initialValue, onSubmit, onUploadImages, loading }) {
+  const [form, setForm] = useState(() => toFormValue(initialValue));
 
   const topCategories = categories.filter((category) => !category.parentId);
   useEffect(() => {
     if (!initialValue) return;
-    setForm({
-      ...emptyItem,
-      ...initialValue,
-      tags: Array.isArray(initialValue.tags) ? initialValue.tags.join(', ') : '',
-      specs: Array.isArray(initialValue.specs) ? initialValue.specs.join(', ') : ''
-    });
+    setForm(toFormValue(initialValue));
   }, [initialValue]);
 
   const subcategories = useMemo(

@@ -3,12 +3,19 @@ import { api } from '../api/client';
 
 const AuthContext = createContext(null);
 
+function readJsonStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    localStorage.removeItem(key);
+    return fallback;
+  }
+}
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('mcube-token') || '');
-  const [owner, setOwner] = useState(() => {
-    const raw = localStorage.getItem('mcube-owner');
-    return raw ? JSON.parse(raw) : null;
-  });
+  const [owner, setOwner] = useState(() => readJsonStorage('mcube-owner', null));
   const [loading, setLoading] = useState(Boolean(token));
 
   useEffect(() => {
