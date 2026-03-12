@@ -10,8 +10,8 @@ export function NotificationPanel({ notifications = [], onRead }) {
             key={notification.id}
             className={`rounded-2xl border p-4 ${
               notification.isRead
-                ? 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/80'
-                : 'border-brand-300 bg-brand-50 dark:border-brand-800 dark:bg-brand-950/30'
+                ? 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900'
+                : 'border-brand-300 bg-brand-50 dark:border-brand-700 dark:bg-slate-950'
             }`}
           >
             <p className="font-semibold text-slate-900 dark:text-white">{notification.title}</p>
