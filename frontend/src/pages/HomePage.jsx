@@ -20,7 +20,7 @@ export function HomePage({ profile }) {
         <div className="overflow-hidden rounded-[2rem] bg-hero p-6 text-white shadow-lift md:p-10">
           <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-center">
             <div>
-              <img src="/mcube-logo.svg" alt="M-Cube Mobile logo" className="h-24 w-24 md:h-32 md:w-32" />
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/70">M-Cube Mobile</p>
               <h1 className="mt-4 font-display text-4xl font-semibold leading-tight md:text-6xl">
                 Mobiles, accessories, and service support in one local store.
               </h1>
@@ -29,7 +29,7 @@ export function HomePage({ profile }) {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link to="/mobiles" className="rounded-2xl bg-white px-5 py-3 font-semibold text-brand-900">Buy Mobiles</Link>
-                <Link to="/accessories" className="rounded-2xl border border-accent-200/70 bg-accent-400/10 px-5 py-3 font-semibold text-accent-100">Shop Accessories</Link>
+                <Link to="/accessories" className="rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white">Shop Accessories</Link>
                 <Link to="/services" className="rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white">Book Service</Link>
               </div>
             </div>
@@ -39,8 +39,8 @@ export function HomePage({ profile }) {
                 ['Phone', profile?.phone || '+91 98765 43210'],
                 ['WhatsApp', profile?.whatsappNumber || '919876543210']
               ].map(([label, value]) => (
-                <div key={label} className="rounded-3xl border border-white/10 bg-white/12 p-5 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-100/80">{label}</p>
+                <div key={label} className="rounded-3xl bg-white/12 p-5 backdrop-blur">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/60">{label}</p>
                   <p className="mt-2 font-display text-2xl font-semibold">{value}</p>
                 </div>
               ))}

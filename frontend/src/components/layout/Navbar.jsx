@@ -1,5 +1,4 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { BrandLogo } from '../shared/BrandLogo';
 import { ThemeToggle } from '../shared/ThemeToggle';
 
 const links = [
@@ -15,11 +14,16 @@ export function Navbar({ profile }) {
   const onOwnerPage = location.pathname.startsWith('/owner');
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-100/80 bg-white/95 backdrop-blur dark:border-brand-900/70 dark:bg-brand-950/92">
+    <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="container-shell flex h-16 items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3">
-          <BrandLogo profile={profile} size="md" />
-          <div className="hidden text-xs text-slate-500 dark:text-slate-300 sm:block">Sales, service and accessories</div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-700 font-display text-lg font-bold text-white">
+            M
+          </div>
+          <div>
+            <div className="font-display text-base font-semibold">{profile?.shopName || 'M-Cube Mobile'}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-300">Sales, service and accessories</div>
+          </div>
         </Link>
         <nav className="hidden items-center gap-2 lg:flex">
           {!onOwnerPage &&
