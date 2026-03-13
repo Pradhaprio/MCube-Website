@@ -1,12 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="mcubeMarkTitle">
+  <title id="mcubeMarkTitle">M-Cube Mobile mark</title>
   <defs>
-    <radialGradient id="bg512" cx="36%" cy="28%" r="70%">
+    <radialGradient id="mcubeMarkGlow" cx="36%" cy="28%" r="70%">
       <stop offset="0%" stop-color="#1843d7" />
       <stop offset="55%" stop-color="#0a1f97" />
       <stop offset="100%" stop-color="#040f57" />
     </radialGradient>
   </defs>
-  <circle cx="256" cy="256" r="236" fill="url(#bg512)" />
+  <circle cx="256" cy="256" r="236" fill="url(#mcubeMarkGlow)" />
   <circle cx="256" cy="256" r="234" fill="none" stroke="#e6c57a" stroke-opacity="0.28" stroke-width="4" />
   <g fill="none" stroke="#e6c57a" stroke-linecap="round" stroke-linejoin="round" stroke-width="14">
     <path d="M256 110l54 32-54 32-54-32 54-32Z" />

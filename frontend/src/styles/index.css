@@ -8,11 +8,11 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply bg-brand-50/40 text-slate-900 antialiased;
   }
 
   .dark body {
-    @apply bg-slate-950 text-slate-100;
+    @apply bg-brand-950 text-slate-100;
   }
 }
 
@@ -22,7 +22,7 @@
   }
 
   .glass-card {
-    @apply rounded-3xl border border-white/10 bg-white/90 shadow-lift backdrop-blur dark:border-slate-800 dark:bg-slate-900/85;
+    @apply rounded-3xl border border-brand-100/70 bg-white/90 shadow-lift backdrop-blur dark:border-brand-900/60 dark:bg-slate-900/85;
   }
 
   .section-title {
@@ -42,6 +42,6 @@
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-brand-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white;
+    @apply inline-flex items-center justify-center rounded-2xl border border-brand-100 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-accent-300 hover:text-brand-800 dark:border-brand-900/60 dark:bg-slate-900 dark:text-white;
   }
 }
